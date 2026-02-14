@@ -1,0 +1,7 @@
+streamlit
+fer
+mtcnn
+tensorflow
+opencv-python-headless
+numpy
+pillow
