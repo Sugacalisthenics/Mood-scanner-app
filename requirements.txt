@@ -2,7 +2,8 @@ streamlit
 setuptools
 opencv-python-headless
 tensorflow-cpu==2.17.0
-mtcnn
 fer
+mtcnn
 numpy<2.0.0
 Pillow
+
