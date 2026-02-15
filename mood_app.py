@@ -1,5 +1,5 @@
 import streamlit as st
-from fer import FER
+from fer.fer import FER
 from PIL import Image
 import numpy as np
 
@@ -49,4 +49,5 @@ if img_file_buffer is not None:
         st.write("Detailed Analysis:")
         st.json(emotions)
     else:
+
         st.warning("No face detected! Try moving closer to the camera or checking the lighting.")
