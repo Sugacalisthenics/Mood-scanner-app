@@ -1,7 +1,7 @@
 streamlit
 opencv-python-headless
 tensorflow-cpu
-mtcnn
 fer
+mtcnn
 numpy
 Pillow
