@@ -13,7 +13,7 @@ except ImportError:
         sys.modules["pkg_resources"] = mock_pkg
 
 import streamlit as st
-from fer import FER
+from fer.fer import FER
 from PIL import Image
 import numpy as np
 
@@ -57,4 +57,5 @@ if img_file_buffer is not None:
         st.json(emotions)
     else:
         st.warning("No face detected! Try moving closer.")
+
 
