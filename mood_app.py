@@ -1,7 +1,5 @@
 import sys
 import subprocess
-
-# Manually installing setuptools if missing and mocking pkg_resources
 try:
     import pkg_resources
 except ImportError:
@@ -59,3 +57,4 @@ if img_file_buffer is not None:
         st.json(emotions)
     else:
         st.warning("No face detected! Try moving closer.")
+
