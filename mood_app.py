@@ -1,7 +1,18 @@
+import sys
+try:
+    import pkg_resources
+except ImportError:
+    import pip._vendor.pkg_resources as pkg_resources
+    sys.modules["pkg_resources"] = pkg_resources
+
+import streamlit as st
+from fer import FER  # Isse wapas 'from fer import FER' kar dein
+from PIL import Image
+import numpy as np
 import streamlit as st
 from fer.fer import FER
 from PIL import Image
-import numpy as np
+
 
 # 1. Page Configuration
 st.set_page_config(page_title="Suga's Mood Scanner", page_icon="📸")
@@ -51,3 +62,4 @@ if img_file_buffer is not None:
     else:
 
         st.warning("No face detected! Try moving closer to the camera or checking the lighting.")
+
