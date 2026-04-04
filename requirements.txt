@@ -3,5 +3,6 @@ setuptools
 Pillow
 tensorflow-cpu
 opencv-python-headless
+opencv-contrib-python-headless
 mtcnn
 fer
