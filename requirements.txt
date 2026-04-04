@@ -1,6 +1,7 @@
 streamlit
 setuptools
-tensorflow-cpu
-fer
-mtcnn
 Pillow
+tensorflow-cpu
+opencv-python-headless
+mtcnn
+fer
