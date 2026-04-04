@@ -1,32 +1,31 @@
 import sys
 import os
 from types import ModuleType
-import fer 
 
+# --- STEP 1: MOCK FIRST (fer import karne se pehle!) ---
 try:
     import pkg_resources
 except ImportError:
     mock_pkg = ModuleType("pkg_resources")
     def resource_filename(package_or_requirement, resource_name):
-        base_path = os.path.dirname(fer.__file__)
-        return os.path.join(base_path, resource_name)
+        return os.path.join(os.getcwd(), resource_name)
     mock_pkg.resource_filename = resource_filename
     sys.modules["pkg_resources"] = mock_pkg
 
 # --- STEP 2: IMPORTS ---
 import streamlit as st
+import cv2  # Force headless cv2 to load first
 from fer.fer import FER
-from PIL import Image, ImageOps  # ImageOps mirror karne ke liye
+from PIL import Image, ImageOps
 import numpy as np
 
 # --- STEP 3: APP CONFIG ---
 st.set_page_config(page_title="Suga's Mirror Mood Scanner", page_icon="📸")
 st.title("📸 Suga's Mood Scanner (Mirror Mode)")
 
-# --- STEP 4: LOAD AI (MTCNN=True for better detection) ---
+# --- STEP 4: LOAD AI ---
 @st.cache_resource
 def load_detector():
-    # mtcnn=True se face detection zyada accurate hogi
     return FER(mtcnn=True) 
 
 try:
@@ -39,14 +38,8 @@ except Exception as e:
 img_file_buffer = st.camera_input("Smile for the camera!")
 
 if img_file_buffer is not None:
-    # 1. Image ko open karein
     image = Image.open(img_file_buffer)
-    
-    # 2. MIRROR FIX: Image ko horizontally flip karein
-    # Isse photo bilkul waisi dikhegi jaisi aapko screen par dikh rahi thi
     image = ImageOps.mirror(image)
-    
-    # 3. Convert to array for AI
     img_array = np.array(image)
 
     with st.spinner('Analyzing your mirrored mood...'):
