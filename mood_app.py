@@ -1,37 +1,35 @@
 import os
 import sys
-
-# --- THE STREAMLIT CLOUD HACK ---
+import importlib.util
+from types import ModuleType
 
 try:
     os.system("pip uninstall -y opencv-python opencv-contrib-python")
 except:
     pass
 
-from types import ModuleType
-
-# --- STEP 1: MOCK FIRST (fer import karne se pehle!) ---
 try:
     import pkg_resources
 except ImportError:
     mock_pkg = ModuleType("pkg_resources")
     def resource_filename(package_or_requirement, resource_name):
+        spec = importlib.util.find_spec(package_or_requirement)
+        if spec and spec.submodule_search_locations:
+            return os.path.join(spec.submodule_search_locations[0], resource_name)
         return os.path.join(os.getcwd(), resource_name)
+    
     mock_pkg.resource_filename = resource_filename
     sys.modules["pkg_resources"] = mock_pkg
 
-# --- STEP 2: IMPORTS ---
 import streamlit as st
-import cv2  # Force headless cv2 to load
+import cv2
 from fer.fer import FER
 from PIL import Image, ImageOps
 import numpy as np
 
-# --- STEP 3: APP CONFIG ---
 st.set_page_config(page_title="Suga's Mirror Mood Scanner", page_icon="📸")
 st.title("📸 Suga's Mood Scanner (Mirror Mode)")
 
-# --- STEP 4: LOAD AI ---
 @st.cache_resource
 def load_detector():
     return FER(mtcnn=True) 
@@ -42,7 +40,6 @@ except Exception as e:
     st.error(f"AI Error: {e}")
     st.stop()
 
-# --- STEP 5: CAMERA INPUT ---
 img_file_buffer = st.camera_input("Smile for the camera!")
 
 if img_file_buffer is not None:
@@ -71,4 +68,4 @@ if img_file_buffer is not None:
         st.warning("Face detect nahi hua! Thoda paas aaiye aur light sahi rakhiye.")
 
 st.markdown("---")
-st.caption("Built with ❤️ by Suga | Fixed Mirror View")
+st.caption("Built with ❤️ by Suga ")
