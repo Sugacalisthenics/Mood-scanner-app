@@ -1,6 +1,5 @@
 streamlit
 setuptools
-opencv-python-headless
 tensorflow-cpu
 fer
 mtcnn
