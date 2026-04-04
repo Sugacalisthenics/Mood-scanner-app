@@ -1,5 +1,13 @@
-import sys
 import os
+import sys
+
+# --- THE STREAMLIT CLOUD HACK ---
+
+try:
+    os.system("pip uninstall -y opencv-python opencv-contrib-python")
+except:
+    pass
+
 from types import ModuleType
 
 # --- STEP 1: MOCK FIRST (fer import karne se pehle!) ---
@@ -14,7 +22,7 @@ except ImportError:
 
 # --- STEP 2: IMPORTS ---
 import streamlit as st
-import cv2  # Force headless cv2 to load first
+import cv2  # Force headless cv2 to load
 from fer.fer import FER
 from PIL import Image, ImageOps
 import numpy as np
